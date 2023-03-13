@@ -1,0 +1,26 @@
+
+services:
+
+  postgres-account:
+    image: "postgres:alpine"
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    #   Set a volume for data and initial sql script
+    #   May configure initial db for future demo
+    volumes:
+      - "pgdata_account:/var/lib/postgresql/data"
+      # - ./init:/docker-entrypoint-initdb.d/
+    command: ["postgres", "-c", "log_statement=all"]
+  
+  redis-account:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redisdata:/data"
+
+volumes:
+  pgdata_account:
+  redisdata:
