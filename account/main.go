@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/sjxiang/memrizr/account/handler"
 )
 
 
@@ -18,11 +17,8 @@ func main() {
 
 	log.Println("Starting server ...")
 	
-	handler.NewHandler(&handler.Config{})
 	
 	router := gin.Default()
-
-	
 
 	srv := &http.Server{
 		Addr:    ":8080",

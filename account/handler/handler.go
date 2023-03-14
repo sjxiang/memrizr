@@ -2,70 +2,49 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 
-	"github.com/sjxiang/memrizr/account/model"
+	"github.com/sjxiang/memrizr/account/service"
 )
 
-type Handler struct{
-	UserService model.UserService
+type RestHandler interface {
+	Me(c *gin.Context)
+	Signin(c *gin.Context)
+	Signup(c *gin.Context)
+	Signout(c *gin.Context)
+	Tokens(c *gin.Context)
+	Image(c *gin.Context)
+	DeleteImage(c *gin.Context)
+	Details(c *gin.Context)
 }
 
-type Config struct {
-	R           *gin.Engine
-	UserService model.UserService
+type RestHandlerImpl struct {
+	logger       *zap.SugaredLogger
+	userService  service.UserService
 }
 
-
-func NewHandler(c *Config) {
-	h := &Handler{
-		UserService: c.UserService,
-	}
-
-	account := c.R.Group("/api/account")
-
-	{
-		account.GET("/me", h.Me)
-		account.POST("/signup", h.Signup)	
-		account.POST("/signin", h.Signin)
-		account.POST("/signout", h.Signout)
-		account.POST("/tokens", h.Tokens)
-		account.POST("/image", h.Image)
-		account.DELETE("/image", h.DeleteImage)
-		account.PUT("/details", h.Details)
+func NewRestHandlerImpl(logger *zap.SugaredLogger, userService service.UserService) *RestHandlerImpl {
+	return &RestHandlerImpl{
+		logger:      logger,
+		userService: userService,
 	}
 }
 
 
+// func NewHandler() {
+
+	// account := c.R.Group("/api/account")
+
+	// {
+	// 	account.GET("/me", h.Me)
+	// 	account.POST("/signup", h.Signup)	
+	// 	account.POST("/signin", h.Signin)
+	// 	account.POST("/signout", h.Signout)
+	// 	account.POST("/tokens", h.Tokens)
+	// 	account.POST("/image", h.Image)
+	// 	account.DELETE("/image", h.DeleteImage)
+	// 	account.PUT("/details", h.Details)
+	// }
+// }
 
 
-// 登录
-func (h *Handler) Signin(c *gin.Context) {
-	
-}
-
-// 退出
-func (h *Handler) Signout(c *gin.Context) {
-	
-}
-
-// 
-func (h *Handler) Tokens(c *gin.Context) {
-	
-}
-
-
-// 
-func (h *Handler) Image(c *gin.Context) {
-	
-}
-// 
-func (h *Handler) DeleteImage(c *gin.Context) {
-	
-}
-
-
-
-// 
-func (h *Handler) Details(c *gin.Context) {
-	
-}

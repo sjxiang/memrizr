@@ -11,7 +11,7 @@ import (
 )
 
 // 用户详情
-func (h *Handler) Me(c *gin.Context) {
+func (impl *RestHandlerImpl) Me(c *gin.Context) {
 	
 	user, exists := c.Get("user")
 	if !exists {
@@ -26,7 +26,7 @@ func (h *Handler) Me(c *gin.Context) {
 	
 	uid := user.(*model.User).UID
 	
-	u, err := h.UserService.Get(c, uid)
+	u, err := impl.userService.Get(c, uid)
 	if err != nil {
 		log.Printf("Unable to find user: %v\n%v", uid, err)
 

@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+
 	"github.com/sjxiang/memrizr/account/pkg/apperrors"
 )
 
@@ -15,6 +16,7 @@ type invalidArgument struct {
 	Tag    string `json:"tag"`
 	Param  string `json:"param"`
 }
+
 
 func bindData(c *gin.Context, req interface{}) bool {
 	if err := c.ShouldBind(req); err != nil {
@@ -41,7 +43,8 @@ func bindData(c *gin.Context, req interface{}) bool {
 			return false
 		}
 
-		fallback := apperrors.NewInternal()
+		// 回退
+		fallback := apperrors.NewInternal()  
 		
 		c.JSON(fallback.Status(), gin.H{
 			"error": fallback,
