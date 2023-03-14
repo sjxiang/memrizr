@@ -22,9 +22,9 @@ type TokenServiceImpl struct {
 	tokenRepo  repo.RedisTokenRepository
 }
 
-func NewTokenServiceImpl(logger *zap.SugaredLogger, tokenRepo repo.RedisTokenRepository) *TokenServiceImpl {
+func NewTokenServiceImpl(_logger *zap.SugaredLogger, tokenRepo repo.RedisTokenRepository) *TokenServiceImpl {
 	return &TokenServiceImpl{
-		logger:    logger,
+		logger:    _logger,
 		tokenRepo: tokenRepo,
 	}
 }

@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"go.uber.org/zap"
-	"gorm.io/gorm"
 	
 	"github.com/sjxiang/memrizr/account/model"
 )
@@ -15,13 +14,11 @@ type RedisTokenRepository interface {
 
 type TokenRepositoryImpl struct {
 	logger *zap.SugaredLogger
-	db     *gorm.DB
 }
 
-func NewTokenRepositoryImpl(logger *zap.SugaredLogger, db *gorm.DB) *TokenRepositoryImpl {
+func NewTokenRepositoryImpl(_logger *zap.SugaredLogger) *TokenRepositoryImpl {
 	return &TokenRepositoryImpl{
-		logger: logger,
-		db:     db,	
+		logger: _logger,
 	}
 }
 

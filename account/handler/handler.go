@@ -24,28 +24,20 @@ type RestHandlerImpl struct {
 	tokenService service.TokenService
 }
 
-func NewRestHandlerImpl(logger *zap.SugaredLogger, userService service.UserService) *RestHandlerImpl {
+func NewRestHandlerImpl(_logger *zap.SugaredLogger, userService service.UserService) *RestHandlerImpl {
 	return &RestHandlerImpl{
-		logger:      logger,
+		logger:      _logger,
 		userService: userService,
 	}
 }
 
-
-// func NewHandler() {
-
-	// account := c.R.Group("/api/account")
-
-	// {
-	// 	account.GET("/me", h.Me)
-	// 	account.POST("/signup", h.Signup)	
-	// 	account.POST("/signin", h.Signin)
-	// 	account.POST("/signout", h.Signout)
-	// 	account.POST("/tokens", h.Tokens)
-	// 	account.POST("/image", h.Image)
-	// 	account.DELETE("/image", h.DeleteImage)
-	// 	account.PUT("/details", h.Details)
-	// }
-// }
-
+//  account := c.R.Group("/api/account")
+// 	account.GET("/me", h.Me)
+// 	account.POST("/signup", h.Signup)	
+// 	account.POST("/signin", h.Signin)
+// 	account.POST("/signout", h.Signout)
+// 	account.POST("/tokens", h.Tokens)
+// 	account.POST("/image", h.Image)
+// 	account.DELETE("/image", h.DeleteImage)
+// 	account.PUT("/details", h.Details)
 

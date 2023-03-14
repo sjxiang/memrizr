@@ -27,9 +27,9 @@ type UserServiceImpl struct {
 	userRepo  repo.PGUserRepository
 }
 
-func NewUserServiceImpl(logger *zap.SugaredLogger, userRepo repo.PGUserRepository) *UserServiceImpl {
+func NewUserServiceImpl(_logger *zap.SugaredLogger, userRepo repo.PGUserRepository) *UserServiceImpl {
 	return &UserServiceImpl{
-		logger:   logger,
+		logger:   _logger,
 		userRepo: userRepo,
 	}
 }
