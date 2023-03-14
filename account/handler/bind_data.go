@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
-	"github.com/sjxiang/memrizr/account/pkg/apperrors"
+	"github.com/sjxiang/memrizr/account/util/apperrors"
 )
 
 
@@ -18,10 +18,10 @@ type invalidArgument struct {
 }
 
 
-func bindData(c *gin.Context, req interface{}) bool {
+func  bindData(c *gin.Context, req interface{}) bool {
 	if err := c.ShouldBind(req); err != nil {
 		log.Printf("Error binding data: %+v\n", err)
-
+		
 		if errs, ok := err.(validator.ValidationErrors); ok {
 			var invalidArgs []invalidArgument
 

@@ -1,12 +1,12 @@
 package handler
 
 import (
-	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/sjxiang/memrizr/account/model"
-	"github.com/sjxiang/memrizr/account/pkg/apperrors"
+	"github.com/sjxiang/memrizr/account/util/apperrors"
 )
 
 
@@ -30,7 +30,7 @@ func (impl *RestHandlerImpl) Signup(c *gin.Context) {
 
 	err := impl.userService.Signup(c, u)
 	if err != nil {
-		log.Printf("Failed to sign up user: %v\n", err.Error())
+		impl.logger.Errorf("Failed to sign up user: %v\n", err.Error())
 		
 		c.JSON(apperrors.Status(err), gin.H{
 			"error": err,
@@ -38,5 +38,17 @@ func (impl *RestHandlerImpl) Signup(c *gin.Context) {
 		return
 	}
 
-	
+	tokens, err := impl.tokenService.NewPairFromUser(c, u, "")
+	if err != nil {
+		impl.logger.Errorf("Failed created tokens for user: %v\n", err.Error())
+
+		c.JSON(apperrors.Status(err), gin.H{
+			"error": err,
+		})
+		return
+	}	
+
+	c.JSON(http.StatusOK, gin.H{
+		"tokens": tokens,
+	})
 }

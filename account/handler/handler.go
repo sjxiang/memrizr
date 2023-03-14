@@ -9,7 +9,7 @@ import (
 
 type RestHandler interface {
 	Me(c *gin.Context)
-	Signin(c *gin.Context)
+	Signin(c *gin.Context)  
 	Signup(c *gin.Context)
 	Signout(c *gin.Context)
 	Tokens(c *gin.Context)
@@ -21,6 +21,7 @@ type RestHandler interface {
 type RestHandlerImpl struct {
 	logger       *zap.SugaredLogger
 	userService  service.UserService
+	tokenService service.TokenService
 }
 
 func NewRestHandlerImpl(logger *zap.SugaredLogger, userService service.UserService) *RestHandlerImpl {

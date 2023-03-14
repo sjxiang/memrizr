@@ -1,13 +1,12 @@
 package handler
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	
 	"github.com/sjxiang/memrizr/account/model"
-	"github.com/sjxiang/memrizr/account/pkg/apperrors"
+	"github.com/sjxiang/memrizr/account/util/apperrors"
 )
 
 // 用户详情
@@ -15,8 +14,8 @@ func (impl *RestHandlerImpl) Me(c *gin.Context) {
 	
 	user, exists := c.Get("user")
 	if !exists {
-		log.Printf("Unable to extract user from request for unknow reason: %v\n", c)  // 由于未知原因，无法从请求中提取用户 
-
+		impl.logger.Errorf("Unable to extract user from request for unknow reason: %v\n", c)
+		
 		err := apperrors.NewInternal()
 		c.JSON(err.Status(), gin.H{
 			"error": err,
@@ -28,8 +27,8 @@ func (impl *RestHandlerImpl) Me(c *gin.Context) {
 	
 	u, err := impl.userService.Get(c, uid)
 	if err != nil {
-		log.Printf("Unable to find user: %v\n%v", uid, err)
-
+		impl.logger.Errorf("Unable to find user: %v\n%v", uid, err)
+		
 		e := apperrors.NewNotFound("user", uid.String())
 		c.JSON(e.Status(), gin.H{
 			"error": e,
